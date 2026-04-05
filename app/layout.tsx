@@ -30,7 +30,10 @@ export default function RootLayout({
       lang="en"
       className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <head>
+        <link rel="stylesheet" href="./globals.css" />
+      </head>
+      <body className="min-h-full flex flex-col bg-amber-50">{children}</body>
     </html>
   );
 }
