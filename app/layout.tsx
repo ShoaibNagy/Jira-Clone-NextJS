@@ -28,12 +28,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
+      className={cn("h-screen", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
     >
       <head>
         <link rel="stylesheet" href="./globals.css" />
       </head>
-      <body className="min-h-full flex flex-col bg-amber-50">{children}</body>
+      <body className="min-h-screen flex flex-col bg-amber-50">{children}</body>
     </html>
   );
 }
