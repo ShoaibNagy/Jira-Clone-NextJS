@@ -1,5 +1,8 @@
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import { DottedSeparator } from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
@@ -10,10 +13,37 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 
+const formSchema = z.object({
+  name: z.string().trim().min(1, "Name is required"),
+  email: z.email(),
+  password: z.string().min(8, "Password must be at least 8 characters long")
+
+});
+
 export default function SignUpCard() {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: ""
+    }
+  });
+
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    console.log("Form submitted:", { values });
+  };
+
   return (
     <Card className="w-full h-full md:w-121.5 border-none shadow-none">
       <CardHeader className="flex flex-col  items-center justify-center text-center p-7">
@@ -34,47 +64,61 @@ export default function SignUpCard() {
         <DottedSeparator />
       </div>
       <CardContent className="p-7">
-        <form className="space-y-4">
-          <Input
-            required
-            type="text"
-            value={""}
-            onChange={() => { }}
-            placeholder="Full Name"
-            disabled={false}
-          />
-          <Input
-            required
-            type="email"
-            value={""}
-            onChange={() => { }}
-            placeholder="Email Address"
-            disabled={false}
-          />
-          <Input
-            required
-            type="password"
-            value={""}
-            onChange={() => { }}
-            placeholder="Password"
-            disabled={false}
-            min={8}
-            max={256}
-          />
-          <Input
-            required
-            type="password"
-            value={""}
-            onChange={() => { }}
-            placeholder="Confirm Password"
-            disabled={false}
-            min={8}
-            max={256}
-          />
-          <Button disabled={false} size={"lg"} className="w-full">
-            Sign Up
-          </Button>
-        </form>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              name="name"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      type="text"
+                      placeholder="Enter your name"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              name="email"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      type="email"
+                      placeholder="Enter your email address"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              name="password"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      type="password"
+                      placeholder="Enter your password"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button disabled={false} size={"lg"} className="w-full">
+              Sign Up
+            </Button>
+          </form>
+        </Form>
       </CardContent>
       <div className="px-7">
         <DottedSeparator />
@@ -98,6 +142,19 @@ export default function SignUpCard() {
           <FaGithub className="mr-2 size-5" />
           Login with GitHub
         </Button>
+      </CardContent>
+      <div className="px-7">
+        <DottedSeparator />
+      </div>
+      <CardContent className="p-7 flex items-center justify-center">
+        <p>
+          Already have an account?{" "}
+          <Link href={"/sign-in"}>
+            <span className="text-blue-700 hover:underline cursor-pointer">
+              &nbsp;Sign in
+            </span>
+          </Link>
+        </p>
       </CardContent>
     </Card>
   );
