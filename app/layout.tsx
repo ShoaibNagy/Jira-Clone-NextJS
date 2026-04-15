@@ -1,9 +1,10 @@
+import "./globals.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
-import "./globals.css";
 import { cn } from "@/lib/utils";
+import QueryProvider from "@/components/query-provider";
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,9 +32,14 @@ export default function RootLayout({
       className={cn("h-screen", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
     >
       <head>
+        <meta name="grammarly-ext" content="false" />
         <link rel="stylesheet" href="./globals.css" />
       </head>
-      <body className="min-h-screen flex flex-col bg-amber-50">{children}</body>
+      <body suppressHydrationWarning className="min-h-screen flex flex-col bg-amber-50">
+        <QueryProvider>
+          {children}
+        </QueryProvider>
+      </body>
     </html>
   );
 }
