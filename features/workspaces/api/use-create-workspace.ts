@@ -8,7 +8,7 @@ import { client } from "@/lib/rpc";
 
 type RequestType = InferRequestType<typeof client.api.workspaces["$post"]>;
 type ResponseType = InferResponseType<typeof client.api.workspaces["$post"]>;
-type JsonRequestType = RequestType["json"];
+type JsonRequestType = RequestType["form"];
 
 export function useCreateWorkspace() {
   const queryClient = useQueryClient();
@@ -16,11 +16,11 @@ export function useCreateWorkspace() {
   const mutation = useMutation<
     ResponseType,
     Error,
-    { json: JsonRequestType },
+    { form: JsonRequestType },
     string
   >({
-    mutationFn: async ({ json }) => {
-      const response = await client.api.workspaces["$post"]({ json });
+    mutationFn: async ({ form }) => {
+      const response = await client.api.workspaces["$post"]({ form });
       if(!response.ok) throw new Error("Failed to create a workspace");
       return await response.json();
     },
