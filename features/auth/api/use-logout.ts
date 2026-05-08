@@ -17,13 +17,14 @@ export function useLogout() {
     >({
         mutationFn: async () => {
             const response = await client.api.auth.logout["$post"]();
-            if(!response.ok) throw new Error("Failed to log out");
+            if (!response.ok) throw new Error("Failed to log out");
             return await response.json();
         },
         onSuccess: () => {
             toast.success("Logged out successfully");
             router.refresh();
             queryClient.invalidateQueries({ queryKey: ["current"] });
+            queryClient.invalidateQueries({ queryKey: ["workspaces"] });
         },
         onError: () => {
             toast.error("Failed to log out");
