@@ -139,6 +139,43 @@ const app = new Hono()
 
       return c.json({ data: workspace });
     }
+  )
+  .delete(
+    "/:workspaceId",
+    sessionMiddleware,
+    async (c) => {
+      const databases = c.get("databases");
+      const user = c.get("user");
+
+      const { workspaceId } = c.req.param();
+
+      const member = await getMember({
+        databases,
+        workspaceId,
+        userId: user.$id
+      });
+
+      if (!member || member.role !== MemberRole.ADMIN) return c.json({ error: "Unautorized" }, 401);
+
+
+      // TODO: Delete all members of the workspace
+      // TODO: Delete all documents of the workspace
+      // TODO: Delete all files of the workspace
+      // TODO: Delete all comments of the workspace
+      // TODO: Delete all likes of the workspace
+      // TODO: Delete all bookmarks of the workspace
+      // TODO: Delete all notifications of the workspace
+      // TODO: Delete all messages of the workspace
+      // TODO: Delete all tasks of the workspace
+      // TODO: Delete all projects of the workspace
+      await databases.deleteDocument(
+        DATABASE_ID,
+        WORKSPACES_ID,
+        workspaceId
+      );
+
+      return c.json({ data: { $id: workspaceId } });
+    }
   );
 
 export default app;
