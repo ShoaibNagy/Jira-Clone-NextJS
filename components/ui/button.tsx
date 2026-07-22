@@ -19,7 +19,7 @@ const buttonVariants = cva(
         destructive:
           "bg-gradient-to-b from-amber-600 to-amber-700 text-white hover:from-amber-700 hover:to-amber-800 aria-expanded:bg-gradient-to-b aria-expanded:from-amber-700 aria-expanded:to-amber-800 active:from-amber-800 active:to-amber-900",
         muted: "bg-neutral-200 text-neutral-600 hover:bg-neutral-200/80 aria-expanded:bg-neutral-200/80 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-700/80 dark:aria-expanded:bg-neutral-700/80",
-        tritary: "bg-blue-100 text-blue-600 border-transparent hover:bg-blue-200 shadow-none aria-expanded:bg-blue-200 aria-expanded:text-blue-600 active:bg-blue-300 active:text-blue-700 dark:bg-blue-900 dark:text-blue-300 dark:hover:bg-blue-800 dark:aria-expanded:bg-blue-800 dark:active:bg-blue-700 dark:active:text-blue-400",
+        teritary: "bg-blue-100 text-blue-600 border-transparent hover:bg-blue-200 shadow-none aria-expanded:bg-blue-200 aria-expanded:text-blue-600 active:bg-blue-300 active:text-blue-700 dark:bg-blue-900 dark:text-blue-300 dark:hover:bg-blue-800 dark:aria-expanded:bg-blue-800 dark:active:bg-blue-700 dark:active:text-blue-400",
       },
       size: {
         default:
