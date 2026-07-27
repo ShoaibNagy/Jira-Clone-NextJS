@@ -5,7 +5,7 @@ import { Fragment } from "react";
 import { ArrowLeftIcon, MoreVerticalIcon } from "lucide-react";
 
 import { MemberRole } from "@/features/members/types";
-import { useGetMembers } from "@/features/members/api/use-get-member";
+import { useGetMembers } from "@/features/members/api/use-get-members";
 import { MemberAvatar } from "@/features/members/components/MemberAvatar";
 import { useDeleteMember } from "@/features/members/api/use-delete-member";
 import { useUpdateMember } from "@/features/members/api/use-update-member";
