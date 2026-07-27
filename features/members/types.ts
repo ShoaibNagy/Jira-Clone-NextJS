@@ -10,3 +10,8 @@ export type Member = Models.Document & {
   userId: string;
   role: MemberRole;
 };
+
+export type PopulatedMember = Member & {
+  name: string;
+  email: string;
+};
