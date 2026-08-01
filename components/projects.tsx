@@ -9,22 +9,23 @@ import { cn } from "@/lib/utils";
 import { useGetProjects } from "@/features/projects/api/use-get-projects";
 import { ProjectAvatar } from "@/features/projects/components/ProjectAvatar";
 import { useWorkspaceId } from "@/features/workspaces/hooks/useWorkspaceId";
-// import { useCreateProjectModal } from "@/features/projects/hooks/use-create-project-modal";
+import { useCreateProjectModal } from "@/features/projects/hooks/useCreateProjectModal";
 
-export function Projects() {
+export const Projects = () => {
   const pathname = usePathname();
+  const { open } = useCreateProjectModal();
   const workspaceId = useWorkspaceId();
   const { data } = useGetProjects({
     workspaceId,
-    
   });
 
   return (
     <div className="flex flex-col gap-y-2">
       <div className="flex items-center justify-between">
         <p className="text-xs uppercase text-neutral-500">Projects</p>
-        <RiAddCircleFill onClick={() => {}} className="size-5 text-neutral-500 cursor-pointer hover:opacity-75 transition" />
-        {data?.documents.map((project) => {
+        <RiAddCircleFill onClick={open} className="size-5 text-neutral-500 cursor-pointer hover:opacity-75 transition" />
+      </div>
+      {data?.documents.map((project) => {
         const href = `/workspaces/${workspaceId}/projects/${project.$id}`;
         const isActive = pathname === href;
 
@@ -42,7 +43,6 @@ export function Projects() {
           </Link>
         )
       })}
-      </div>
     </div>
   );
-}
+};
